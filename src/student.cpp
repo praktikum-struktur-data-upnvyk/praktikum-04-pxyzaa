@@ -89,23 +89,91 @@ void tutupSemuaTab(CNode*& head) {
 
 // SOAL 1
 bool bukaHalaman(DNode*& head, DNode*& tail, int nomor) {
+    DNode* baru = new DNode;
+    baru -> data = nomor;
+    baru -> next = nullptr;
+    baru -> prev = tail;
+
+    if(tail == nullptr){
+        head = baru;
+        tail = baru;
+    } else {
+        tail -> next = baru;
+        tail = baru;
+    }
     return false;
 }
 
 // SOAL 2
 int riwayatMundur(DNode* tail, int* keluaran) {
+    DNode* temp = tail;
+
+    cout << "List mundur : " ;
+    while (temp != nullptr)
+    {
+        cout << temp -> data << "<-> ";
+        temp = temp -> prev;
+    }
+    cout << "NULL" << endl;
     return 0;
 }
 
 // SOAL 3
 bool hapusHalaman(DNode*& head, DNode*& tail, int nomor) {
+
+    DNode* temp = head;
+
+    while(temp != nullptr){
+        if(temp -> data = nomor){
+            if(temp == head){
+                head = temp -> next;
+
+                if(head != nullptr){
+                    head -> prev = nullptr;
+                }else{
+                    tail = nullptr;
+                }
+            }
+            else if ( temp == tail) {
+                    tail = temp -> prev;
+                    tail -> next = nullptr;
+            }
+            else {
+                    temp -> prev -> next = temp -> next;
+                    temp -> next -> prev = temp -> prev;
+            }
+
+            delete temp;
+    
+        }
+
+        temp = temp -> next;
+    }
     return false;
 }
 
 // SOAL 4
 bool bukaTab(CNode*& head, int nomor) {
-    return false;
+    CNode* baru = new CNode;
+    baru->data = nomor;
+
+    if (head == nullptr) {
+        head = baru;
+        baru->next = head;
+        return true;
+    }
+
+    CNode* p = head;
+    while (p->next != head) {
+        p = p->next;
+    }
+
+    p->next = baru;
+    baru->next = head;
+
+    return true;
 }
+
 
 // =============================================================================
 // MAIN() — memeragakan pagi di loket. TIDAK dinilai, bebas diubah.
@@ -228,7 +296,7 @@ int main() {
     cout << "    Anda belum punya syarat berhenti yang benar.\n";
 
     // -------------------------------------------------------------------------
-    // Mau mencoba sendiri? Hapus tanda // di bawah ini, lalu jalankan lagi.
+    // Mau mencoba sendiri? Hapus tanda // di bawah ini, lalu jalankan lagi. y
     // -------------------------------------------------------------------------
     // int nomor;
     // cout << "\nKetik satu nomor halaman: ";
